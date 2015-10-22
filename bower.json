@@ -1,0 +1,28 @@
+{
+  "name": "Food Tracker",
+  "homepage": "https://github.com/HerdADVance/food-tracker",
+  "authors": [
+    "Alex Vance <herdadvance@gmail.com>"
+  ],
+  "description": "A MEAN stack tool to track your diet and nutritional info.",
+  "main": "index.html",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "keywords": [
+    "Food"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
