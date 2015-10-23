@@ -3,16 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <title>Food Tracker</title>
-  <link rel="stylesheet" href="js/lib/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="js/lib/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body ng-app="foodPicker">
+<body ng-app="foodTracker">
 	<section ng-controller="ItemCtrl">
-		<h1>{{test}}</h1>
+		<div style="margin-bottom:50px;">
+			<p>Enter an Item:</p>
+			<table>
+				<form>
+					<tr>
+						<th>Name</th>
+						<th>Calories</th>
+						<th>Fat</th>
+						<th>Carbs</th>
+						<th>Protein</th>
+						<th>Sodium</th>
+						<th>Fiber</th>
+					</tr>
+					<tr>
+						<td><input name="name" type="text" /></td>
+						<td><input name="calories" type="text" /></td>
+						<td><input name="fat" type="text" /></td>
+						<td><input name="carbs" type="text" /></td>
+						<td><input name="protein" type="text" /></td>
+						<td><input name="sodium" type="text" /></td>
+						<td><input name="fiber" type="text" /></td>
+						<td><button ng-click="addItem()">ADD</button></td>
+					</tr>
+				</form>
+			</table>
+		</div>
+		<h2>Food Items</h2>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Calories</th>
+				<th>Fat</th>
+				<th>Carbs</th>
+				<th>Protein</th>
+				<th>Sodium</th>
+				<th>Fiber</th>
+			</tr>
+			<tr ng-repeat="item in items">
+				<td>{{item.name}} ({{item.portion}})</td>
+				<td>{{item.calories}}</td>
+				<td>{{item.fat}}</td>
+				<td>{{item.carbs}}</td>
+				<td>{{item.protein}}</td>
+				<td>{{item.sodium}}</td>
+				<td>{{item.fiber}}</td>
+			</tr>
+		</table>
 	</section>
 
-<script src="js/lib/angular/angular.min.js"></script>
+<script src="node_modules/angular/angular.min.js"></script>
 <script src="js/src/app.js"></script>
 <script src="js/src/ItemCtrl.js"></script>
 </body>
