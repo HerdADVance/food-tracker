@@ -1,0 +1,39 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+#main-container{
+	padding-top: 20px;
+	width: 90%;
+}
+
+.form-group{
+	float: left;
+	margin-right:; 5px;
+}
+
+input{
+	width: 70px !important;
+}
+
+#formly_1_input_name_0, #formly_1_input_portion_1{
+	width: 200px !important;
+}
+
+
+/* DATABASE ITEMS */
+#database-items{
+	width: 100%;
+}
+#database-items tr:hover{
+	background: #EEE;
+	cursor: pointer;
+	opacity: 0.9;
+}
+#database-items td{
+	border: 1px solid #CCC;
+	padding: 5px;
+}
