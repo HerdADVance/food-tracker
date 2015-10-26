@@ -19,6 +19,7 @@
 	   	 </form>
 			</div>
 			<div class="container">
+
 				<div class="col-md-8">
 					<h2>Food Items</h2>
 					<table>
@@ -41,15 +42,29 @@
 							<td>{{item.fiber}}</td>
 							<td><button ng-click="deleteItem($index)">Delete</button></td>
 						</tr>
+						<tr>
+							<td></td>
+							<td>{{calories}}</td>
+							<td>{{fat}}</td>
+							<td>{{carbs}}</td>
+							<td>{{protein}}</td>
+							<td>{{sodium}}</td>
+							<td>{{fiber}}</td>
+						</tr>
 					</table>
 				</div>
+
 				<div class="col-md-4">
 					<h2>Database List</h2>
+					<input type="search" id="item-search" placeholder="Search Items" ng-model="itemSearch" />
 					<table id="database-items">
-						<tr ng-repeat="item in items track by $index" ng-click="selectItem(item)">
-							<td>{{item.name}} ({{item.portion}})</td>
+						<tr ng-repeat="item in items | filter: itemSearch track by $index">
+							<td ng-click="selectItem(item)">{{item.name}} ({{item.portion}})</td>
+							<td><button ng-click="deleteDatabaseItem($index)">Delete</button</td>
 						</tr>
+					</table>
 				</div>
+
 			</div>
 		</section>
 	</div>

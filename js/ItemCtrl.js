@@ -6,8 +6,15 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
 
 	$scope.selectedItems = [];
 
+	$scope.calories = 0;
+	$scope.fat = 0;
+	$scope.carbs = 0;
+	$scope.protein = 0;
+	$scope.sodium = 0;
+	$scope.fiber = 0;
+
   var vm = this;
-  vm.onSubmit = onSubmit;
+  vm.onSubmit = addDatabaseItem;
   vm.newItem = {};
   vm.newItemFields = [
     {
@@ -16,6 +23,7 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       templateOptions: {
         type: 'text',
         label: 'Name',
+        placeholder: 'e.g. Banana',
         required: true
       }
     },
@@ -24,7 +32,8 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       type: 'input',
       templateOptions: {
         type: 'text',
-        label: 'Portion'
+        label: 'Portion',
+        placeholder: 'e.g. 4oz or 1 medium'
       }
     },
     {
@@ -32,7 +41,8 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       type: 'input',
       templateOptions: {
         type: 'number',
-        label: 'Calories'
+        label: 'Calories',
+        placeholder: 'kCal'
       }
     },
     {
@@ -40,7 +50,8 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       type: 'input',
       templateOptions: {
         type: 'number',
-        label: 'Fat'
+        label: 'Fat',
+        placeholder: 'g'
       }
     },
     {
@@ -48,7 +59,8 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       type: 'input',
       templateOptions: {
         type: 'number',
-        label: 'Carbs'
+        label: 'Carbs',
+        placeholder: 'g'
       }
     },
     {
@@ -56,7 +68,8 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       type: 'input',
       templateOptions: {
         type: 'number',
-        label: 'Protein'
+        label: 'Protein',
+        placeholder: 'g'
       }
     },
     {
@@ -64,7 +77,8 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       type: 'input',
       templateOptions: {
         type: 'number',
-        label: 'Sodium'
+        label: 'Sodium',
+        placeholder: 'mg'
       }
     },
     {
@@ -72,7 +86,9 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       type: 'input',
       templateOptions: {
         type: 'number',
-        label: 'Fiber'
+        label: 'Fiber',
+        placeholder: 'g',
+        default: 0
       }
     },
     {
@@ -85,22 +101,49 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
     }
   ];
 
-  function onSubmit() {
+  function addDatabaseItem() {
   	$scope.items.push(vm.newItem);
   	if(vm.newItem.addToList){
-  		$scope.selectedItems.push(vm.newItem);
+  		$scope.selectItem(vm.newItem);
   	}
   	vm.newItem = {};
     //alert(JSON.stringify(vm.newItem), null, 2);
   }
 
+  $scope.deleteDatabaseItem = function(index){
+  	$scope.items.splice(index, 1);
+  }
+
   $scope.selectItem = function(item){
   	$scope.selectedItems.push(item);
+  	getNutritionTotals();
   }
 
   $scope.deleteItem = function(index){
   	$scope.selectedItems.splice(index, 1);
+  	getNutritionTotals();
   }
+
+  
+
+  getNutritionTotals = function(){
+    $scope.calories = 0; 
+    $scope.fat = 0; 
+    $scope.carbs = 0;
+    $scope.protein = 0;
+    $scope.sodium = 0; 
+    $scope.fiber = 0;
+
+    for(var i = 0; i < $scope.selectedItems.length; i++){
+        var item = $scope.selectedItems[i];
+        $scope.calories += (item.calories);
+        $scope.fat += (item.fat);
+        $scope.carbs += (item.carbs);
+        $scope.protein += (item.protein);
+        $scope.sodium += (item.sodium);
+        $scope.fiber += (item.fiber);
+    }
+	};
 
 
 }]);
