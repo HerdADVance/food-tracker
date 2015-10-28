@@ -1,10 +1,16 @@
 foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
  
-  $scope.items = [
-    {name: "Banana", portion: "1 medium", calories: 50, fat: 10, carbs: 10, protein: 10, sodium: 50, fiber: 10}
-  ]
-
+  $scope.items = [];
   $scope.selectedItems = [];
+
+  $http.get('api/items')
+    .success(function(data){
+      $scope.items = data;
+      console.log(data);
+    })
+    .error(function(data){
+      console.log("Error: " + data);
+    });
 
   $scope.calories = 0;
   $scope.fat = 0;
@@ -102,38 +108,44 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
   ];
 
   function addDatabaseItem() {
-    $scope.items.push(vm.newItem);
     if(vm.newItem.addToList){
       $scope.selectItem(vm.newItem);
     }
-    apiTest(vm.newItem);
+    persistItem(vm.newItem);
     vm.newItem = {};
-    //alert(JSON.stringify(vm.newItem), null, 2);
   }
 
-  apiTest = function(item){
+  persistItem = function(item){
     $http.post('/api/items', item)
       .success(function(data){
+        $scope.items = data;
         console.log(data);
       })
       .error(function(data){
         console.log("Error: " + data);
-      })
-  }
+      });
+  };
 
-  $scope.deleteDatabaseItem = function(index){
-    $scope.items.splice(index, 1);
-  }
+  $scope.deleteDatabaseItem = function(id){
+    $http.delete('/api/items/' + id)
+      .success(function(data){
+        $scope.items = data;
+        console.log(data);
+      })
+      .error(function(data){
+        console.log("Error: " + data);
+      });
+  };
 
   $scope.selectItem = function(item){
     $scope.selectedItems.push(item);
     getNutritionTotals();
-  }
+  };
 
   $scope.deleteItem = function(index){
     $scope.selectedItems.splice(index, 1);
     getNutritionTotals();
-  }
+  };
 
   
 

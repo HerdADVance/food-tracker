@@ -60,7 +60,7 @@
 					<table id="database-items">
 						<tr ng-repeat="item in items | filter: itemSearch track by $index">
 							<td ng-click="selectItem(item)">{{item.name}} ({{item.portion}})</td>
-							<td><button ng-click="deleteDatabaseItem($index)">Delete</button</td>
+							<td><button ng-click="deleteDatabaseItem(item._id)">Delete</button</td>
 						</tr>
 					</table>
 				</div>
