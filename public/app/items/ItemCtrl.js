@@ -19,6 +19,13 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
   $scope.sodium = 0;
   $scope.fiber = 0;
 
+  $scope.dvCalories = 2000;
+  $scope.dvFat = 65;
+  $scope.dvCarbs = 300;
+  $scope.dvProtein = 50;
+  $scope.dvSodium = 2400;
+  $scope.dvFiber = 25;
+
   var vm = this;
   vm.onSubmit = addDatabaseItem;
   vm.newItem = {};
@@ -46,16 +53,16 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       key: 'calories',
       type: 'input',
       templateOptions: {
-        type: 'number',
+        type: 'decimal',
         label: 'Calories',
-        placeholder: 'kCal'
+        placeholder: 'kcal'
       }
     },
     {
       key: 'fat',
       type: 'input',
       templateOptions: {
-        type: 'number',
+        type: 'decimal',
         label: 'Fat',
         placeholder: 'g'
       }
@@ -64,7 +71,7 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       key: 'carbs',
       type: 'input',
       templateOptions: {
-        type: 'number',
+        type: 'decimal',
         label: 'Carbs',
         placeholder: 'g'
       }
@@ -73,7 +80,7 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       key: 'protein',
       type: 'input',
       templateOptions: {
-        type: 'number',
+        type: 'decimal',
         label: 'Protein',
         placeholder: 'g'
       }
@@ -82,7 +89,7 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       key: 'sodium',
       type: 'input',
       templateOptions: {
-        type: 'number',
+        type: 'decimal',
         label: 'Sodium',
         placeholder: 'mg'
       }
@@ -91,7 +98,7 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
       key: 'fiber',
       type: 'input',
       templateOptions: {
-        type: 'number',
+        type: 'decimal',
         label: 'Fiber',
         placeholder: 'g',
         default: 0

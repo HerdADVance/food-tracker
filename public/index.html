@@ -22,7 +22,7 @@
 
 				<div class="col-md-8">
 					<h2>Food Items</h2>
-					<table>
+					<table class="table table-striped table-bordered table-hover table-condensed">
 						<tr>
 							<th>Name</th>
 							<th>Calories</th>
@@ -44,12 +44,12 @@
 						</tr>
 						<tr>
 							<td></td>
-							<td>{{calories}}</td>
-							<td>{{fat}}</td>
-							<td>{{carbs}}</td>
-							<td>{{protein}}</td>
-							<td>{{sodium}}</td>
-							<td>{{fiber}}</td>
+							<td>{{calories}} ({{(calories/dvCalories *100).toFixed(1)}}%)</td>
+							<td>{{fat}} ({{(fat/dvFat *100).toFixed(1)}}%)</td>
+							<td>{{carbs}} ({{(carbs/dvCarbs *100).toFixed(1)}}%)</td>
+							<td>{{protein}} ({{(protein/dvProtein *100).toFixed(1)}}%)</td>
+							<td>{{sodium}} ({{(sodium/dvSodium *100).toFixed(1)}}%)</td>
+							<td>{{fiber}} ({{(fiber/dvFiber *100).toFixed(1)}}%)</td>
 						</tr>
 					</table>
 				</div>
@@ -57,12 +57,14 @@
 				<div class="col-md-4">
 					<h2>Database List</h2>
 					<input type="search" id="item-search" placeholder="Search Items" ng-model="itemSearch" />
-					<table id="database-items">
-						<tr ng-repeat="item in items | filter: itemSearch track by $index">
-							<td ng-click="selectItem(item)">{{item.name}} ({{item.portion}})</td>
-							<td><button ng-click="deleteDatabaseItem(item._id)">Delete</button</td>
-						</tr>
-					</table>
+					<div class="pre-scrollable">
+						<table id="database-items">
+							<tr ng-repeat="item in items | orderBy: 'name' | filter: itemSearch track by $index">
+								<td ng-click="selectItem(item)">{{item.name}} ({{item.portion}})</td>
+								<td><button ng-click="deleteDatabaseItem(item._id)">Delete</button</td>
+							</tr>
+						</table>
+					</div>
 				</div>
 
 			</div>
