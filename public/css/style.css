@@ -5,6 +5,18 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+.navbar{
+	background: #B80000;
+	border-bottom: 3px solid #000;
+}
+.navbar-brand, .navbar-brand:hover{
+	color: #FFF;
+}
+
+.navbar input{
+	margin-right: 15px;
+}
+
 #main-container{
 	padding-top: 20px;
 	width: 90%;
@@ -15,7 +27,7 @@ input::-webkit-inner-spin-button {
 	margin-right:; 5px;
 }
 
-input{
+#main-container input{
 	width: 70px !important;
 }
 

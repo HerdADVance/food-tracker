@@ -8,10 +8,36 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-app="foodTracker">
+	<div class="navbar">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">FoodTracker</a>
+			</div>
+			<div ng-controller="NavbarCtrl" class="navbar-right">
+				<form class="navbar-form" ng-hide="identity.isAuthenticated()">
+					<div class="form-group">
+						<input type="text" placeholder="Username" class="form-control" ng-model="username" />
+					</div>
+					<div class="form-group">
+						<input type="password" placeholder="Password" class="form-control" ng-model="password" />
+					</div>
+					<div class="form-group">
+						<button class="btn btn-primary" ng-click="loginUser(username, password)">
+							Sign In
+						</button>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-primary" ng-click="showSignupModal()" data-toggle="modal" data-target="#signup-modal">
+							Sign Up
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<section ng-controller="ItemCtrl as vm">
 			<div class="container">
-				<p>Enter an Item:</p>
 				<form ng-submit="vm.onSubmit()">
 					<formly-form model="vm.newItem" fields="vm.newItemFields" form="vm.newItemForm">
 		        <button type="submit" class="btn btn-primary" ng-disabled="vm.NewItemForm.$invalid">Submit</button>
@@ -71,13 +97,35 @@
 		</section>
 	</div>
 
+	<div class="modal" id="signup-modal" ng-controller="SignupCtrl as vm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">Signup for Foodtracker</div>
+				<div class="modal-body">
+					<form ng-submit="vm.onSubmit()">
+						<formly-form model="vm.newUser" fields="vm.newUserFields" form="vm.newUserForm">
+			        <button type="submit" class="btn btn-primary" ng-disabled="vm.NewUserForm.$invalid">Submit</button>
+			    	</formly-form>
+	   	 		</form>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+
 <script src="vendor/api-check/dist/api-check.min.js"></script>
 <script src="vendor/angular/angular.min.js"></script>
 <script src="vendor/angular-formly/dist/formly.js"></script>
 <script src="vendor/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<script src="app/items/app.js"></script>
+<script src="app/app.js"></script>
 <script src="app/items/ItemCtrl.js"></script>
+<script src="app/login/mvIdentity.js"></script>
+<script src="app/login/mvAuth.js"></script>
+<script src="app/login/NavbarCtrl.js"></script>
+<script src="app/login/SignupCtrl.js"></script>
 
 </body>
 </html>
