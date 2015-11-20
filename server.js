@@ -9,8 +9,12 @@ var session = require('express-session');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var crypto = require('crypto');
 
 mongoose.connect('mongodb://herdadvance:Se7en645@ds047950.mongolab.com:47950/mean');
+
+app.set('views', './server/views');
+app.set('view engine', 'jade');
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
@@ -84,30 +88,13 @@ app.delete('/api/items/:item_id', function(req, res){
 //-------------USER------------
 
 var Schema = mongoose.Schema;
-
-var userSchema = new Schema({
-	email: String,
-	username: String,
-	password: String,
-	salt: String,
-	hash: String
-});
-
-userSchema.methods = {
-	authenticate: function(passwordToMatch){
-		return encrypt.hashPwd(this.salt, passwordToMatch) === this.hashed_pwd;
-	},
-	hasRole: function(role){
-		return this.roles.indexOf(role) > -1;
-	}
-};
-
-var User = mongoose.model('User', userSchema);
+var userModel = require('./server/models/User');
+var User = mongoose.model('User');
 
 passport.use(new LocalStrategy(
 	function(username, password, done){
 		User.findOne({username: username}).exec(function(err, user){
-			if(user){
+			if(user && user.authenticate(password)){
 				return done(null, user);
 			}
 			else{
@@ -134,51 +121,48 @@ passport.deserializeUser(function(id, done){
 	})
 });
 
-app.post('/api/login', function(req, res, next){
-	var auth = passport.authenticate('local', function(err, user){
-		if(err){return next(err);}
-		if(!user){return res.send({success: false});}
-		req.logIn(user, function(err){
-			if(err){return next(err);}
-			res.send({success: true, user: user});
-		})
-	})
-	auth(req, res, next);
+var auth = require('./server/auth');
+var users = require('./server/controllers/users');
+
+app.post('/login', auth.authenticate);
+
+app.post('/logout', function(req, res){
+	req.logout();
+	res.end();
 });
 
-app.post('/api/users', function(req, res){
+//app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
+app.post('/api/users', users.createUser);
 
-	var email = req.body.email;
-	var username = req.body.username.toLowerCase();
-	var password = req.body.password; 
+// app.post('/api/users', function(req, res){
 
-	User.find({email: email}).exec(function(err, collection){
-		if(collection.length === 0){
-			User.create({
-				email: email,
-				username: username,
-				password: password
-			}, function(err, item){
-				if (err)
-					res.send(err);
-			});
-		}
-		else{
-			err = new Error('Duplicate E-Mail');
-			return res.send({reason: err.toString()});
-		}
-	});
+// 	var email = req.body.email;
+// 	var username = req.body.username.toLowerCase();
+// 	var password = req.body.password; 
+// 	var newSalt = createSalt();
+// 	var newHash = hashPassword(newSalt, password);
 
-	// User.find({ username: 'starlord55' }, function(err, user) {
-	//   if (err) throw err;
 
-	//   // object of the user
-	//   console.log(user);
-	// });
+// 	User.find({email: email}).exec(function(err, collection){
+// 		if(collection.length === 0){
+// 			User.create({
+// 				email: email,
+// 				username: username,
+// 				password: password,
+// 				salt: newSalt,
+// 				hashed: newHash
+// 			}, function(err, item){
+// 				if (err)
+// 					res.send(err);
+// 			});
+// 		}
+// 		else{
+// 			err = new Error('Duplicate E-Mail');
+// 			return res.send({reason: err.toString()});
+// 		}
+// 	});
 
-	
-
-});
+// });
 
 app.get('/api/users', function(req, res){
 	User.find(function(err, users){
@@ -191,12 +175,17 @@ app.get('/api/users', function(req, res){
 
 
 
-
+app.get('/partials/*', function(req, res){
+	res.render('../../public/app/' + req.params[0]);
+});
 
 
 
 app.get('*', function(req, res) {
-	res.sendfile('./public/app/index.html');
+	//res.sendfile('./public/app/index.html');
+	res.render('index', {
+		bootstrappedUser: req.user
+	});
 });
 
 

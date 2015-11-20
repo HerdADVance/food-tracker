@@ -1,0 +1,34 @@
+.navbar(ng-controller="NavbarCtrl")
+	.container
+		.navbar-header
+			a.navbar-brand(href="/#/") FoodTracker
+		ul.nav.navbar-nav(ng-show="identity.isAuthenticated()")
+			li
+				a(href="/#/calendar") Calendar
+			li
+				a(href="/#/daily") Daily
+			li
+				a(href="/#/my-foods") My Foods
+			li
+				a(href="/#/my-meals") My Meals
+		.navbar-right
+			form.navbar-form(ng-hide="identity.isAuthenticated()")
+				.form-group
+					input(type="text", placeholder="Username", class="form-control", ng-model="username")
+				.form-group
+					input(type="password", placeholder="Password", class="form-control", ng-model="password")
+				.form-group
+					button.btn.btn-primary(ng-click="loginUser(username, password)") Sign In
+				.form-group
+					button.btn.btn-primary(ng-click="showSignupModal()", data-toggle="modal", data-target="#signup-modal") Sign Up
+			ul.nav.navbar-nav.navbar-right#navbar-dropdown(ng-show="identity.isAuthenticated()")
+				li.dropdown
+					a.dropdown-toggle(href="", data-toggle="dropdown") {{identity.currentUser.username}}
+						b.caret
+					ul.dropdown-menu
+						li
+							a(href="/admin/users") User Admin
+						li
+							a(href="/profile") Profile
+						li
+							a(href="", ng-click="logoutUser()") Logout

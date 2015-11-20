@@ -1,6 +1,7 @@
-angular.module('foodTracker').controller('SignupCtrl', function($scope, $http) {
- 
+angular.module('foodTracker').controller('SignupCtrl', function($scope, $http, $location, mvAuth, mvUser) {
+
   var vm = this;
+  vm.showSignup = true;
   vm.onSubmit = addUser;
   vm.newUser = {};
   vm.newUserFields = [
@@ -9,7 +10,7 @@ angular.module('foodTracker').controller('SignupCtrl', function($scope, $http) {
       type: 'input',
       templateOptions: {
         type: 'text',
-        label: 'Email',
+        label: 'E-Mail Address',
         placeholder: '',
         required: true
       }
@@ -33,22 +34,44 @@ angular.module('foodTracker').controller('SignupCtrl', function($scope, $http) {
         placeholder: '',
         required: true
       }
+    },
+    {
+      key: 'confirm-password',
+      type: 'input',
+      templateOptions: {
+        type: 'password',
+        label: 'Confirm Password',
+        placeholder: '',
+        required: true
+      }
     }
   ];
 
-  function addUser(){
-    persistUser(vm.newUser);
+  function showSignup(){
+    vm.showSignup = true;
   }
 
-  persistUser = function(user){
-    $http.post('/api/users', user)
-      .success(function(data){
-        console.log(data);
-      })
-      .error(function(data){
-        console.log("Error: " + data);
-      });
+  function addUser(){
+    //persistUser(vm.newUser);
+    mvAuth.createUser(vm.newUser).then(function(){
+      console.log("USER CREATED");
+      $location.path('/daily');
+      // HIDE MODAL
+    }, function(reason){
+      console.log(reason);
+    })
   }
+
+  // persistUser = function(user){
+  //   $http.post('/api/users', user)
+  //     .success(function(data){
+  //       console.log(data);
+  //     })
+  //     .error(function(data){
+  //       console.log("Error: " + data);
+  //     });
+  // }
+
 
 });
 

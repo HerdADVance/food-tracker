@@ -5,21 +5,99 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-.navbar{
-	background: #B80000;
-	border-bottom: 3px solid #000;
-}
-.navbar-brand, .navbar-brand:hover{
-	color: #FFF;
+body{
+	background: #FFF7F8;
 }
 
+
+/* NAVBAR */
+.navbar{
+	background: #B80000;
+	border-bottom: 2px solid pink;
+	border-radius: 0;
+	height: 75px;
+	margin-bottom: 0;
+}
+.navbar-brand{
+	color: #FFF;
+	font-size: 2em;
+	line-height: 75px;
+	margin: 0 40px 0 0;
+	padding: 0;
+}
+.navbar-brand:hover, .navbar-brand:visited{
+	color: #FFF;
+}
+ul.nav li{
+	margin: 0;
+}
+ul.nav li a{
+	color: pink;
+	font-size: 1.25em;
+	height: 72px;
+	line-height: 72px;
+	padding: 0 30px;
+	text-align: center;
+}
+.navbar .nav a:hover, .navbar .nav a:focus{
+	background: salmon;
+}
+
+/* DROPDOWN MENU */
+#navbar-dropdown a{
+	color: #FFF;
+	font-size: 1.5em;
+}
+#navbar-dropdown .dropdown-menu a{
+	color: #B80000;
+	font-size: 1.125em !important;
+	height: 45px;
+	line-height: 45px;
+}
+#navbar-dropdown .dropdown-menu a:hover{
+	background: #FFEEEE;
+}
+
+/*LOGIN FORM*/
+.navbar-right{
+	height: 75px;
+	line-height: 75px;
+}
+.navbar-right form{
+	margin: 0;
+	padding: 0;
+}
 .navbar input{
 	margin-right: 15px;
 }
 
-#main-container{
-	padding-top: 20px;
-	width: 90%;
+
+
+/* JUMBOTRON */
+.jumbotron{
+	background: #B80000;
+	border-bottom: 3px solid #333;
+	border-top: 3px solid #333;
+}
+.jumbotron h1{
+	color: #FFF;
+	font-size: 4em;
+}
+.jumbotron p{
+	color: pink;
+}
+
+
+/* MAIN CONTAINER */
+.main-container{
+	background: #FFF;
+	border: 1px solid #B80000;
+	margin: 40px auto 60px;
+	padding: 15px 35px 30px;
+}
+
+.main-container h1{
+	color: #B80000;
 }
 
 .form-group{
@@ -35,17 +113,155 @@ input::-webkit-inner-spin-button {
 	width: 200px !important;
 }
 
+.btn-primary{
+	background: #B80000;
+	border: 1px solid #333;
+}
+.btn-primary:hover{
+	background: #9F0000;
+}
+
+
+/* ADD TO DATABASE FORM*/
+#add-food-item{
+	margin-top: 20px;
+}
+#add-food-item .form-group{
+	width: auto;
+}
+#add-food-item input, #add-food-item label{
+	margin-left: 10px;
+	width: 75px;
+}
+#add-food-item-name{
+	margin-left: 0 !important;
+}
+#add-food-item-name, #add-food-item-portion{
+	width: 200px !important;
+}
+#add-food-item button{
+	margin: 24px 0 0 20px;
+}
 
 /* DATABASE ITEMS */
+#my-foods input[type='search']{
+	margin-bottom: 15px;
+	width: 25%;
+	min-width: 180px;
+}
 #database-items{
 	width: 100%;
 }
+#database-items input[type='search']{
+	float:right;
+}
 #database-items tr:hover{
-	background: #EEE;
-	cursor: pointer;
-	opacity: 0.9;
+	background: #FFEEEE;
+}
+#database-items th{
+	background: pink;
+	border: 1px solid salmon;
+	border-bottom: 0;
+	color: #B80000;
+	font-size: 1.05em;
+	padding: 10px 3px;
+	text-align: center;
 }
 #database-items td{
 	border: 1px solid #CCC;
-	padding: 5px;
+	padding: 6px 3px;
+	text-align: center;
+	width: 70px;
+}
+#database-items td:first-child{
+	min-width: 200px;
+	width: auto;
+}
+#database-items span.item-name{
+	color: #333;
+	font-size: 0.95em;
+	font-weight: bold;
+	margin-right: 3px;
+}
+#database-items span.portion{
+	color: #999;
+	display: inline-block;
+	font-size: 0.875em;
+}
+#database-items .edit-item, #database-items .delete-item{
+	cursor: pointer;
+	width: 40px;
+}
+
+/* ACCORDION */
+.accordion{
+	background: #FFEEEE;
+	border-bottom: 1px solid #CCC;
+	border-top: 1px solid #CCC;
+	cursor: pointer;
+	overflow: auto;
+	margin: 20px 0;
+	padding: 0 15px 10px 15px;
+}
+.accordion h2{
+	color: salmon;
+	display: inline-block;
+	font-size: 1.25em;
+	margin-left: 10px;
+}
+
+
+/* MODALS */
+.modal-header{
+	background: #B80000;
+	border-bottom: 3px solid #333;
+	color: #FFF;
+	font-size: 1.75em;
+	text-align: center;
+}
+.modal-body{
+	background: #EEE;
+	padding-top: 25px;
+}
+.modal-body .form-group{
+	margin: 12px 10%;
+	width: 80%;
+}
+.modal-body .control-label{
+	font-size: 1.125em;
+	color: #666;
+}
+.modal-body input.form-control{
+	border-radius: 10px;
+	height: 40px;
+}
+.modal-footer{
+	background: #B80000;
+	color: #FFF;
+	display: none;
+	font-size: 0.875em;
+	padding: 7px;
+	text-align: center;
+}
+.btn-signup{
+	font-size: 1.375em;
+	margin: 20px 37.5%;
+	padding: 10px;
+	width: 25%;
+}
+
+/* GLYPHICONS */
+.glyphicon-plus-sign{
+	background: #FFF;
+	color: green;
+}
+.glyphicon-remove{
+	color: #B80000;
+}
+
+/* BUTTONS */
+.btn-primary[disabled], .btn-primary[disabled]:hover{
+	background: #B80000;
+	border: 1px solid #000;
+	color: #FFF;
 }

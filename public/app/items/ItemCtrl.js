@@ -1,4 +1,4 @@
-foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
+angular.module('foodTracker').controller('ItemCtrl', function($scope, $http) {
  
   $scope.items = [];
   $scope.selectedItems = [];
@@ -102,21 +102,10 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
         placeholder: 'g',
         default: 0
       }
-    },
-    {
-      key: 'addToList',
-      type: 'input',
-      templateOptions: {
-        type: 'checkbox',
-        label: 'Add To List?'
-      }
     }
   ];
 
   function addDatabaseItem() {
-    if(vm.newItem.addToList){
-      $scope.selectItem(vm.newItem);
-    }
     persistItem(vm.newItem);
     vm.newItem = {};
   }
@@ -175,6 +164,6 @@ foodTracker.controller('ItemCtrl', ['$scope', '$http', function($scope, $http) {
   };
 
 
-}]);
+});
 
 

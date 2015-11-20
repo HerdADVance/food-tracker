@@ -1,0 +1,9 @@
+.modal#signup-modal(ng-controller="SignupCtrl as vm")
+	.modal-dialog
+		.modal-content
+			.modal-header Signup for Foodtracker
+			.modal-body
+				form(ng-submit="vm.onSubmit()")
+					formly-form(model="vm.newUser", fields="vm.newUserFields", form="vm.newUserForm")
+						button.btn.btn-primary.btn-signup(type="submit", ng-disabled="vm.NewUserForm.$invalid") Submit
+			.modal-footer
