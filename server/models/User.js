@@ -7,6 +7,7 @@ var userSchema = mongoose.Schema({
 	password: {type: String, required: "{PATH} is required"},
 	salt: {type: String, required: "{PATH} is required"},
 	hashed: {type: String, required: "{PATH} is required"},
+	foods: {type: Array}
 });
 
 userSchema.methods = {

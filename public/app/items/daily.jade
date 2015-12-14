@@ -1,45 +1,41 @@
 section(ng-controller="ItemCtrl as vm")
-	.container
-		form(ng-submit="vm.onSubmit()")
-			formly-form(model="vm.newItem", fields="vm.newItemFields", form="vm.newItemForm")
-				button.btn.btn-primary(type="submit", ng-disabled="vm.newItemForm.$invalid") Submit
-	.container
-		.col-md-3
-			h2 Database List
-			input(type="search", id="item-search", placeholder="Search Items", ng-model="itemSearch")
-			.pre-scrollable
-				table#database-items
-					tr(ng-repeat="item in items | orderBy: 'name' | filter: itemSearch track by $index")
-						td(ng-click="selectItem(item)") {{item.name}} ({{item.portion}})
-		.col-md-9
-			h2 Food Items
-			table.table.table-striped.table-bordered.table-hover.table-condensed
-				tr
-					th Name
-					th Calories
-					th Fat
-					th Carbs
-					th Protein
-					th Sodium
-					th Fiber
-				tr(ng-repeat="item in selectedItems track by $index")
-					td {{item.name}} ({{item.portion}})
-					td {{item.calories}}
-					td {{item.fat}}
-					td {{item.carbs}}
-					td {{item.protein}}
-					td {{item.sodium}}
-					td {{item.fiber}}
-					td 
-						button(ng-click="deleteItem($index)") Delete
-				tr
-					td 
-					td {{calories}} ({{(calories/dvCalories *100).toFixed(1)}}%)
-					td {{fat}} ({{(fat/dvFat *100).toFixed(1)}}%)
-					td {{carbs}} ({{(carbs/dvCarbs *100).toFixed(1)}}%)
-					td {{protein}} ({{(protein/dvProtein *100).toFixed(1)}}%)
-					td {{sodium}} ({{(sodium/dvSodium *100).toFixed(1)}}%)
-					td {{fiber}} ({{(fiber/dvFiber *100).toFixed(1)}}%)
+	h1 Daily Food List
+	.col-md-3
+		h3 My Foods
+		input(type="search", id="item-search", placeholder="Search Items", ng-model="itemSearch")
+		.pre-scrollable
+			table#database-items
+				tr(ng-repeat="item in items | orderBy: 'name' | filter: itemSearch track by $index")
+					td(ng-click="selectItem(item)") {{item.name}} ({{item.portion}})
+	.col-md-9
+		h3 Today
+		table.table.table-striped.table-bordered.table-hover.table-condensed
+			tr
+				th Name
+				th Calories
+				th Fat
+				th Carbs
+				th Protein
+				th Sodium
+				th Fiber
+			tr(ng-repeat="item in selectedItems track by $index")
+				td {{item.name}} ({{item.portion}})
+				td {{item.calories}}
+				td {{item.fat}}
+				td {{item.carbs}}
+				td {{item.protein}}
+				td {{item.sodium}}
+				td {{item.fiber}}
+				td 
+					button(ng-click="deleteItem($index)") Delete
+			tr
+				td 
+				td {{calories}} ({{(calories/dvCalories *100).toFixed(1)}}%)
+				td {{fat}} ({{(fat/dvFat *100).toFixed(1)}}%)
+				td {{carbs}} ({{(carbs/dvCarbs *100).toFixed(1)}}%)
+				td {{protein}} ({{(protein/dvProtein *100).toFixed(1)}}%)
+				td {{sodium}} ({{(sodium/dvSodium *100).toFixed(1)}}%)
+				td {{fiber}} ({{(fiber/dvFiber *100).toFixed(1)}}%)
 				
 							
 					

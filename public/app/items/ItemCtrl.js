@@ -1,15 +1,15 @@
-angular.module('foodTracker').controller('ItemCtrl', function($scope, $http) {
+angular.module('foodTracker').controller('ItemCtrl', function($scope, $http, mvIdentity, mvFoods, mvUser, $q) {
  
-  $scope.items = [];
+  $scope.items = mvIdentity.currentUser.foods;
   $scope.selectedItems = [];
 
-  $http.get('api/items')
-    .success(function(data){
-      $scope.items = data;
-    })
-    .error(function(data){
-      console.log("Error: " + data);
-    });
+  // $http.get('api/items')
+  //   .success(function(data){
+  //     $scope.items = data;
+  //   })
+  //   .error(function(data){
+  //     console.log("Error: " + data);
+  //   });
 
   $scope.calories = 0;
   $scope.fat = 0;

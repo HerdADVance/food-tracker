@@ -134,6 +134,8 @@ app.post('/logout', function(req, res){
 //app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
 app.post('/api/users', users.createUser);
 
+app.put('/api/users/:id', users.addFoodItem);
+
 // app.post('/api/users', function(req, res){
 
 // 	var email = req.body.email;
@@ -179,7 +181,9 @@ app.get('/partials/*', function(req, res){
 	res.render('../../public/app/' + req.params[0]);
 });
 
-
+app.all('/api/*', function(req,res){
+	res.send(404);
+});
 
 app.get('*', function(req, res) {
 	//res.sendfile('./public/app/index.html');
@@ -187,8 +191,6 @@ app.get('*', function(req, res) {
 		bootstrappedUser: req.user
 	});
 });
-
-
 
 app.listen(8080);
 console.log("App listening on port 8080");

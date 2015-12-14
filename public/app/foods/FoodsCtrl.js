@@ -1,16 +1,19 @@
-angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http) {
+angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, mvIdentity, mvFoods, $q) {
 
   var vm = this;
 
-  vm.items = [];
+  //vm.items = [];
 
-  $http.get('api/items')
-    .success(function(data){
-      vm.items = data;
-    })
-    .error(function(data){
-      console.log("Error: " + data);
-    });
+  console.log(mvIdentity.currentUser);
+  vm.items = mvIdentity.currentUser.foods;
+
+  // $http.get('api/items')
+  //   .success(function(user){
+  //     vm.items = user.foods;
+  //   })
+  //   .error(function(data){
+  //     console.log("Error: " + data);
+  //   });
 
   vm.onSubmit = addDatabaseItem;
   vm.newItem = {};
@@ -94,20 +97,13 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http) {
   ];
 
   function addDatabaseItem(){
-    persistItem(vm.newItem);
-    vm.newItem = {};
+    mvFoods.createItem(vm.newItem).then(function(){
+      vm.newItem = {};
+      vm.items = mvIdentity.currentUser.foods;
+    }, function(reason){
+      console.log("ERROR: " + reason);
+    })
   }
-
-  persistItem = function(item){
-    $http.post('/api/items', item)
-      .success(function(data){
-        vm.items = data;
-        console.log(data);
-      })
-      .error(function(data){
-        console.log("Error: " + data);
-      });
-  };
 
   $scope.deleteDatabaseItem = function(id){
     $http.delete('/api/items/' + id)
