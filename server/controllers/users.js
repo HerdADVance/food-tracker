@@ -1,4 +1,5 @@
 var User = require('mongoose').model('User');
+var Food = require('mongoose').model('Food');
 var encrypt = require('../utilities/encryption');
 
 exports.getUsers = function(req, res){
@@ -6,18 +7,6 @@ exports.getUsers = function(req, res){
 		res.send(collection);
 	})
 };
-
-exports.addFoodItem = function(req, res, next){
-	var itemData = req.body.item;
-	var userId = req.body._id;
-	User.findOne({_id: userId}).exec(function(err, user){
-		user.foods.push(itemData);
-		user.save(function(err){
-			if(err) {res.status(400); return res.send({reason:err.toString()});}
-			res.send(user);
-		});
-	})
-}
 
 exports.createUser = function(req, res, next){
 	var userData = req.body;
@@ -41,7 +30,7 @@ exports.createUser = function(req, res, next){
 
 	User.create(userData, function(err, user){
 		if(err){
-			var errMsg="";
+			var errMsg = "";
 			if(dupEmail){
 				errMsg += "An account with this email address already exists.\n"
 			}

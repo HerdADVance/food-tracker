@@ -1,19 +1,7 @@
-angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, mvIdentity, mvFoods, $q) {
+angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, $filter, mvIdentity, mvNotifier, mvFoods, $q, $anchorScroll, $location) {
 
   var vm = this;
-
-  //vm.items = [];
-
-  console.log(mvIdentity.currentUser);
   vm.items = mvIdentity.currentUser.foods;
-
-  // $http.get('api/items')
-  //   .success(function(user){
-  //     vm.items = user.foods;
-  //   })
-  //   .error(function(data){
-  //     console.log("Error: " + data);
-  //   });
 
   vm.onSubmit = addDatabaseItem;
   vm.newItem = {};
@@ -96,6 +84,11 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, mv
     }
   ];
 
+  vm.usdaSearchTerm = "";
+  vm.usdaProductId = "";
+  vm.usdaSearchResult = [];
+  vm.usdaItemPortions = [];
+
   function addDatabaseItem(){
     mvFoods.createItem(vm.newItem).then(function(){
       vm.newItem = {};
@@ -103,18 +96,62 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, mv
     }, function(reason){
       console.log("ERROR: " + reason);
     })
-  }
-
-  $scope.deleteDatabaseItem = function(id){
-    $http.delete('/api/items/' + id)
-      .success(function(data){
-        vm.items = data;
-        console.log(data);
-      })
-      .error(function(data){
-        console.log("Error: " + data);
-      });
   };
+
+  $scope.deleteDatabaseItem = function(itemId){
+    mvFoods.deleteItem(itemId).then(function(){
+      vm.items = mvIdentity.currentUser.foods;
+    }, function(reason){
+      console.log("ERROR: " + reason);
+    })
+  };
+
+  $scope.editDatabaseItem = function(item){
+    mvFoods.editItem(item).then(function(){
+      vm.items = mvIdentity.currentUser.foods;
+    }, function(reason){
+      console.log("ERROR: " + reason);
+    })
+  };
+
+  $scope.usdaSearch = function(term){
+    mvFoods.usdaSearch(term).then(function(data){
+      vm.usdaItemPortions = [];
+      vm.usdaSearchResult = data;
+    }, function(reason){
+      console.log("ERROR: " + reason);
+    })
+  };
+
+  $scope.usdaSelectItem = function(index, productId){
+    var selectedItem = vm.usdaSearchResult[index];
+    vm.usdaSearchResult = [];
+    vm.usdaSearchResult.push(selectedItem);
+    vm.usdaProductId = productId;
+    vm.scrollTo('usda-search');
+    mvFoods.usdaSelectItem(productId).then(function(data){
+      vm.usdaItemPortions = data;
+    }, function(reason){
+      console.log("ERROR: " + reason);
+    })
+  };
+  $scope.usdaSelectPortion = function(index){
+    mvFoods.usdaSelectPortion(vm.usdaProductId, index).then(function(data){
+      mvFoods.createItem(data).then(function(){
+        vm.newItem = {};
+        vm.items = mvIdentity.currentUser.foods;
+        mvNotifier.notify('Item added to database!');
+      }, function(reason){
+        console.log("ERROR: " + reason);
+      })
+    }, function(reason){
+      console.log("ERROR: " + reason);
+    })
+  };
+  vm.scrollTo = function(id) {
+    $location.hash(id);
+    $anchorScroll();
+  }
 
 
 });

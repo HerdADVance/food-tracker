@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
-var foodSchema = mongoose.Schema({
+var mealSchema = mongoose.Schema({
 	name: {type: String, required: "{PATH} is required"},
-	portion: {type: String},
+	items: {type: Array},
 	calories: {type: Number},
 	fat: {type: Number},
 	carbs: {type: Number},
@@ -11,4 +11,4 @@ var foodSchema = mongoose.Schema({
 	fiber: {type: Number},
 });
 
-var Food = mongoose.model('Food', foodSchema);
+var Meal = mongoose.model('Meal', mealSchema);

@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 
-var mongoose = require('mongoose');
 var passport = require('passport');
+var mongoose = require('mongoose');
 var LocalStrategy = require('passport-local').Strategy;
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -22,67 +22,67 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({'extended':'true'})); 
 app.use(bodyParser.json()); 
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(session({secret: 'go herd'}));
+app.use(session({secret: 'go herd', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride());
 
-var Item = mongoose.model('Item', {
-	name: String,
-	portion: String,
-	calories: Number,
-	fat: Number,
-	carbs: Number,
-	protein: Number,
-	sodium: Number,
-	fiber: Number
-});
+// var Item = mongoose.model('Item', {
+// 	name: String,
+// 	portion: String,
+// 	calories: Number,
+// 	fat: Number,
+// 	carbs: Number,
+// 	protein: Number,
+// 	sodium: Number,
+// 	fiber: Number
+// });
 
-app.get('/api/items', function(req, res){
-	Item.find(function(err, items){
-		if (err)
-			res.send(err);
-		res.json(items);
-	});
-});
+// app.get('/api/items', function(req, res){
+// 	Item.find(function(err, items){
+// 		if (err)
+// 			res.send(err);
+// 		res.json(items);
+// 	});
+// });
 
-app.post('/api/items', function(req, res){
-	Item.create({
-		name: req.body.name,
-		portion: req.body.portion,
-		calories: req.body.calories,
-		fat: req.body.fat,
-		carbs: req.body.carbs,
-		protein: req.body.protein,
-		sodium: req.body.sodium,
-		fiber: req.body.fiber
-	}, function(err, item){
-		if (err)
-			res.send(err);
+// app.post('/api/items', function(req, res){
+// 	Item.create({
+// 		name: req.body.name,
+// 		portion: req.body.portion,
+// 		calories: req.body.calories,
+// 		fat: req.body.fat,
+// 		carbs: req.body.carbs,
+// 		protein: req.body.protein,
+// 		sodium: req.body.sodium,
+// 		fiber: req.body.fiber
+// 	}, function(err, item){
+// 		if (err)
+// 			res.send(err);
 
-		Item.find(function(err, items){
-			if (err)
-				res.send(err)
-			res.json(items);
-		});
+// 		Item.find(function(err, items){
+// 			if (err)
+// 				res.send(err)
+// 			res.json(items);
+// 		});
 
-	});
-});
+// 	});
+// });
 
-app.delete('/api/items/:item_id', function(req, res){
-	Item.remove({
-		_id: req.params.item_id
-	}, function(err, item){
-		if (err)
-			res.send(err);
+// app.delete('/api/items/:item_id', function(req, res){
+// 	Item.remove({
+// 		_id: req.params.item_id
+// 	}, function(err, item){
+// 		if (err)
+// 			res.send(err);
 
-		Item.find(function(err, items){
-			if(err)
-				res.send(err)
-			res.json(items);
-		});
-	});
-});
+// 		Item.find(function(err, items){
+// 			if(err)
+// 				res.send(err)
+// 			res.json(items);
+// 		});
+// 	});
+// });
 
 
 //-------------USER------------
@@ -90,6 +90,10 @@ app.delete('/api/items/:item_id', function(req, res){
 var Schema = mongoose.Schema;
 var userModel = require('./server/models/User');
 var User = mongoose.model('User');
+var foodModel = require('./server/models/Food');
+var Food = mongoose.model('Food');
+var mealModel = require('./server/models/Meal');
+var Meal = mongoose.model('Meal');
 
 passport.use(new LocalStrategy(
 	function(username, password, done){
@@ -123,6 +127,8 @@ passport.deserializeUser(function(id, done){
 
 var auth = require('./server/auth');
 var users = require('./server/controllers/users');
+var foods = require('./server/controllers/foods');
+var meals = require('./server/controllers/meals');
 
 app.post('/login', auth.authenticate);
 
@@ -134,7 +140,13 @@ app.post('/logout', function(req, res){
 //app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
 app.post('/api/users', users.createUser);
 
-app.put('/api/users/:id', users.addFoodItem);
+app.put('/api/foods/post/:id', foods.addFoodItem);
+app.put('/api/foods/put/:id', foods.editFoodItem);
+app.put('/api/foods/delete/:id', foods.deleteFoodItem);
+
+app.put('/api/meals/post/:id', meals.addMeal);
+app.put('/api/meals/delete/:id', meals.deleteMeal);
+app.put('/api/meals/put/:id', meals.editMeal);
 
 // app.post('/api/users', function(req, res){
 
