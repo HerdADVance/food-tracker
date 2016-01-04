@@ -27,62 +27,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride());
 
-// var Item = mongoose.model('Item', {
-// 	name: String,
-// 	portion: String,
-// 	calories: Number,
-// 	fat: Number,
-// 	carbs: Number,
-// 	protein: Number,
-// 	sodium: Number,
-// 	fiber: Number
-// });
-
-// app.get('/api/items', function(req, res){
-// 	Item.find(function(err, items){
-// 		if (err)
-// 			res.send(err);
-// 		res.json(items);
-// 	});
-// });
-
-// app.post('/api/items', function(req, res){
-// 	Item.create({
-// 		name: req.body.name,
-// 		portion: req.body.portion,
-// 		calories: req.body.calories,
-// 		fat: req.body.fat,
-// 		carbs: req.body.carbs,
-// 		protein: req.body.protein,
-// 		sodium: req.body.sodium,
-// 		fiber: req.body.fiber
-// 	}, function(err, item){
-// 		if (err)
-// 			res.send(err);
-
-// 		Item.find(function(err, items){
-// 			if (err)
-// 				res.send(err)
-// 			res.json(items);
-// 		});
-
-// 	});
-// });
-
-// app.delete('/api/items/:item_id', function(req, res){
-// 	Item.remove({
-// 		_id: req.params.item_id
-// 	}, function(err, item){
-// 		if (err)
-// 			res.send(err);
-
-// 		Item.find(function(err, items){
-// 			if(err)
-// 				res.send(err)
-// 			res.json(items);
-// 		});
-// 	});
-// });
 
 
 //-------------USER------------
@@ -94,6 +38,14 @@ var foodModel = require('./server/models/Food');
 var Food = mongoose.model('Food');
 var mealModel = require('./server/models/Meal');
 var Meal = mongoose.model('Meal');
+var dayModel = require('./server/models/Day');
+var Day = mongoose.model('Day');
+
+var auth = require('./server/auth');
+var users = require('./server/controllers/users');
+var foods = require('./server/controllers/foods');
+var meals = require('./server/controllers/meals');
+var days = require('./server/controllers/days');
 
 passport.use(new LocalStrategy(
 	function(username, password, done){
@@ -125,11 +77,6 @@ passport.deserializeUser(function(id, done){
 	})
 });
 
-var auth = require('./server/auth');
-var users = require('./server/controllers/users');
-var foods = require('./server/controllers/foods');
-var meals = require('./server/controllers/meals');
-
 app.post('/login', auth.authenticate);
 
 app.post('/logout', function(req, res){
@@ -148,35 +95,9 @@ app.put('/api/meals/post/:id', meals.addMeal);
 app.put('/api/meals/delete/:id', meals.deleteMeal);
 app.put('/api/meals/put/:id', meals.editMeal);
 
-// app.post('/api/users', function(req, res){
-
-// 	var email = req.body.email;
-// 	var username = req.body.username.toLowerCase();
-// 	var password = req.body.password; 
-// 	var newSalt = createSalt();
-// 	var newHash = hashPassword(newSalt, password);
-
-
-// 	User.find({email: email}).exec(function(err, collection){
-// 		if(collection.length === 0){
-// 			User.create({
-// 				email: email,
-// 				username: username,
-// 				password: password,
-// 				salt: newSalt,
-// 				hashed: newHash
-// 			}, function(err, item){
-// 				if (err)
-// 					res.send(err);
-// 			});
-// 		}
-// 		else{
-// 			err = new Error('Duplicate E-Mail');
-// 			return res.send({reason: err.toString()});
-// 		}
-// 	});
-
-// });
+app.put('/api/days/post/:id', days.addDay);
+// app.put('/api/days/delete/:id', days.deleteDay);
+// app.put('/api/days/put/:id', days.editDay);
 
 app.get('/api/users', function(req, res){
 	User.find(function(err, users){
@@ -185,7 +106,6 @@ app.get('/api/users', function(req, res){
 		res.json(users);
 	});
 });
-
 
 
 

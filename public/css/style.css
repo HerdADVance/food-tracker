@@ -166,7 +166,7 @@ h3.subtitle{
 .database-items input[type='search']{
 	float:right;
 }
-.database-items tr:hover{
+.food-items, .meal-items tr:hover{
 	background: #FFEEEE;
 }
 .database-items th{
@@ -204,6 +204,64 @@ h3.subtitle{
 	width: 40px;
 }
 
+.foods-items th{
+	font-size: 0.75em;
+}
+.foods-items td{
+	height: 45px;
+	width: 50px;
+}
+.foods-items td.foods-name{
+	font-weight: 700;
+}
+.foods-items td.foods-portion{
+	color: #999;
+	font-size: 0.95em;
+	width: 120px;
+}
+.foods-items td.edit-item, .foods-items td.delete-item{
+	width: 100px;
+}
+
+/* DAILY */
+#daily .col-md-3{
+	padding-left: 0px;
+}
+#daily .col-md-3 input{
+	margin-bottom: 3px;
+}
+.daily-foods td{
+	cursor: pointer;
+	font-size: 0.95em !important;
+}
+.daily-portion{
+	color: #333;
+	display: block;
+	font-size: 0.875em;
+}
+#item-search{
+	margin: 5px 0 10px;
+}
+.daily-items td{
+	background: #FFF7F8;
+	padding: 5px 8px;
+	width: 60px;
+}
+.daily-items th{
+	font-size: 0.875em;
+	padding: 10px 3px;
+}
+.item-totals span{
+	color: #999;
+	display: block;
+	font-size: 0.875em;
+	margin-top: 3px;
+}
+#daily-date{
+	display: inline-block;
+	margin-top: -48px;
+	width: 200px;
+}
 /* ACCORDION */
 .accordion{
 	background: #FFEEEE;

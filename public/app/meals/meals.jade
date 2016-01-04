@@ -40,10 +40,11 @@ section#my-meals(ng-controller="MealsCtrl as vm")
 					button.btn.btn-primary(type="submit" ng-show="vm.newMeal.items.length > 0") Add Meal
 			.col-md-4
 				h3 Select Foods
-				table.food-items
-					tr(ng-repeat="item in vm.items | orderBy: 'name'")
-						td(ng-click="vm.addItemToMeal(item)") {{item.name}}
-							span.meals-portion {{item.portion}}
+				.pre-scrollable
+					table.food-items
+						tr(ng-repeat="item in vm.items | orderBy: 'name'")
+							td(ng-click="vm.addItemToMeal(item)") {{item.name}}
+								span.meals-portion {{item.portion}}
 	h3.subtitle Existing Meals
 	table.database-items.meal-items(ng-repeat="meal in vm.meals | orderBy: 'name' track by $index")
 		tr

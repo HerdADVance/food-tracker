@@ -11,6 +11,16 @@ var mealSchema = mongoose.Schema({
 	sodium: {type: Number},
 	fiber: {type: Number},
 });
+var daySchema = mongoose.Schema({
+	date: {type: Date},
+	items: {type: Array},
+	calories: {type: Number},
+	fat: {type: Number},
+	carbs: {type: Number},
+	protein: {type: Number},
+	sodium: {type: Number},
+	fiber: {type: Number},
+});
 
 var userSchema = mongoose.Schema({
 	email: {type: String, required: "{PATH} is required", index:{unique: true, dropDups: true}},
@@ -19,7 +29,8 @@ var userSchema = mongoose.Schema({
 	salt: {type: String, required: "{PATH} is required"},
 	hashed: {type: String, required: "{PATH} is required"},
 	foods: {type: Array},
-	meals: [mealSchema]
+	meals: [mealSchema],
+	days: [daySchema]
 });
 
 userSchema.methods = {
