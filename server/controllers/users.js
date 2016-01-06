@@ -47,3 +47,17 @@ exports.createUser = function(req, res, next){
 		})
 	})
 };
+
+exports.editGoals = function(req, res, next){
+	var newGoals = req.body.goals;
+	var userId = req.body.userId;
+	User.findOne({_id: userId}).exec(function(err, user){
+		for(i=0; i<user.foods.length; i++){
+			user.goals = newGoals;
+		}
+		user.save(function(err, user){
+			if(err) {res.status(400); return res.send({reason:err.toString()});}
+			res.send(user);
+		});
+	})
+};

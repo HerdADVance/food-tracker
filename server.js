@@ -86,6 +86,7 @@ app.post('/logout', function(req, res){
 
 //app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
 app.post('/api/users', users.createUser);
+app.put('/api/users/:id', users.editGoals);
 
 app.put('/api/foods/post/:id', foods.addFoodItem);
 app.put('/api/foods/put/:id', foods.editFoodItem);
@@ -96,8 +97,8 @@ app.put('/api/meals/delete/:id', meals.deleteMeal);
 app.put('/api/meals/put/:id', meals.editMeal);
 
 app.put('/api/days/post/:id', days.addDay);
-// app.put('/api/days/delete/:id', days.deleteDay);
-// app.put('/api/days/put/:id', days.editDay);
+app.put('/api/days/delete/:id', days.deleteDay);
+app.put('/api/days/put/:id', days.editDay);
 
 app.get('/api/users', function(req, res){
 	User.find(function(err, users){

@@ -30,7 +30,15 @@ var userSchema = mongoose.Schema({
 	hashed: {type: String, required: "{PATH} is required"},
 	foods: {type: Array},
 	meals: [mealSchema],
-	days: [daySchema]
+	days: [daySchema],
+	goals: {
+    calories: { type: Number, default: 2000},
+    fat: { type: Number, default: 65},
+    carbs: { type: Number, default: 300},
+    protein: { type: Number, default: 50},
+    sodium: { type: Number, default: 2400},
+    fiber: { type: Number, default: 25},
+  }
 });
 
 userSchema.methods = {

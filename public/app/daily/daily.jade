@@ -18,10 +18,10 @@ section#daily(ng-controller="DailyCtrl as vm")
 					td(ng-click="vm.selectItem(meal)") 
 						span.daily-name {{meal.name}}
 	.col-md-9
-		h3.subtitle Add Daily Totals
+		h3.subtitle Daily Totals
 		input.form-control.pull-right#daily-date(ng-model="vm.theDate" type="date")
 		p.intro(ng-show="vm.selectedItems.length == 0") What did you have to eat today? Click on your foods and meals to add them to this day's list. 
-		table.database-items.daily-items(ng-show="vm.selectedItems.length > 0")
+		table.database-items.daily-items(ng-show="vm.selectedItems.length > 0 || vm.editing == true")
 			tr
 				th Name
 				th Calories
@@ -41,7 +41,7 @@ section#daily(ng-controller="DailyCtrl as vm")
 				td {{item.fiber | number:2}}
 				td.delete-item(ng-click="vm.deleteItem($index)")
 					span.glyphicon.glyphicon-remove
-			tr.item-totals
+			tr.item-totals(ng-show="vm.selectedItems.length > 0")
 				td(style="border: none; background: none")
 				td <strong>{{vm.calories | number:0}}</strong>
 					span {{(vm.calories/vm.dvCalories *100).toFixed(1)}}%
@@ -55,10 +55,12 @@ section#daily(ng-controller="DailyCtrl as vm")
 					span {{(vm.sodium/vm.dvSodium *100).toFixed(1)}}%
 				td <strong>{{vm.fiber | number:2}}</strong>
 					span {{(vm.fiber/vm.dvFiber *100).toFixed(1)}}%
-			tr(ng-show="vm.selectedItems.length > 0")
+			tr(ng-show="vm.selectedItems.length > 0 && vm.editing == false")
 				td(colspan="7" style="border:none; background: #FFF; padding: 18px 0 0 0;")
 					btn.btn.btn-primary.pull-right(ng-click="vm.clearDay()") CLEAR ALL
 					btn.btn.btn-primary.pull-right(ng-click="vm.saveDay()" style="margin-right:5px;") SAVE TO CALENDAR
-				
-							
+			tr(ng-show="vm.editing")
+				td(colspan="7" style="border:none; background: #FFF; padding: 18px 0 0 0;")
+					btn.btn.btn-primary.pull-right(ng-click="vm.saveEditedDay()") SAVE CHANGES
+					btn.btn.btn-primary.pull-right(ng-click="vm.cancelEditedDay()" style="margin-right:5px;") CANCEL CHANGES				
 					

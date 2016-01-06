@@ -13,6 +13,7 @@ angular.module('foodTracker').config(function($routeProvider, $locationProvider)
 	//$locationProvider.html5Mode(true);
 	$routeProvider
 		.when('/', {templateUrl: '/partials/welcome/welcome', controller:'SignupCtrl'})
+		.when('/calendar', {templateUrl: '/partials/calendar/calendar', controller:'CalendarCtrl'})
 		.when('/daily', {templateUrl: '/partials/daily/daily', controller:'DailyCtrl'})
 		.when('/my-foods', {templateUrl: '/partials/foods/foods', controller:'FoodsCtrl'})
 		.when('/my-meals', {templateUrl: '/partials/meals/meals', controller:'MealsCtrl'});

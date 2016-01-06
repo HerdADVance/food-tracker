@@ -209,7 +209,7 @@ h3.subtitle{
 }
 .foods-items td{
 	height: 45px;
-	width: 50px;
+	width: 60px;
 }
 .foods-items td.foods-name{
 	font-weight: 700;
@@ -388,6 +388,54 @@ tr.add-edit-meals td:hover{
 }
 .meal-items td:first-child{
 	width: 40%!important;
+}
+
+/* CALENDAR */
+
+td.cr150{ background: rgba(0,225,0, 0.80); } /* > 150% */
+td.cr0, td.cr10, td.cr20, td.cr30, td.cr40{  background: rgba(255,0,0, 1.00); } /* < 50% */
+td.cr50{ background: rgba(255,0,0, 0.70); } /* 50-60% */
+td.cr60{ background: rgba(255,0,0, 0.60); } /* 60-70% */
+td.cr70{ background: rgba(255,0,0, 0.45); } /* 70-80% */
+td.cr80{ background: rgba(255,0,0, 0.30); } /* 80-90% */
+td.cr90{ background: rgba(255,0,0, 0.15); } /* 90-100% */
+td.cr100{ background: rgba(0,255,0, 0.15); } /* 100-110% */
+td.cr110{ background: rgba(0,255,0, 0.30); } /* 110-120% */
+td.cr120{ background: rgba(0,255,0, 0.45); } /* 120-130% */
+td.cr130{ background: rgba(0,255,0, 0.60); } /* 130-140% */
+td.cr140{ background: rgba(0,255,0, 0.80); } /* 140-150% */
+
+.calendar-days th{
+	background: #EEE;
+	border: 1px solid #CCC;
+	color: #333;
+}
+.calendar-days td{
+	color: #000;
+	font-size: 1.05em;
+	width: 85px;
+}
+
+.calendar-key{
+	margin-bottom: 35px;
+}
+.calendar-key td{
+	color: #333;
+	font-size: 0.875em;
+	padding: 10px;
+}
+tr.calendar-goals td, tr.calendar-average td{
+	font-size: 1.125em;
+	padding: 15px;
+}
+tr.calendar-goals{
+	border-top:2px solid #666;
+}
+tr.calendar-goals td{
+	font-weight: bold;
+}
+tr.calendar-goals td:first-child{
+	background: #FFF;
 }
 
 /* MODALS */

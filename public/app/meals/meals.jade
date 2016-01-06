@@ -83,7 +83,8 @@ section#my-meals(ng-controller="MealsCtrl as vm")
 		tr(ng-show="vm.editIndex == $index")
 			td(colspan="9") 
 				btn.btn.btn-primary(ng-click="vm.showAddItemsToEdit()") Add A New Item
-		tr.add-edit-meals(ng-show="vm.editIndex == $parent.$index && vm.addState" ng-repeat="item in vm.items | orderBy: 'name'")
-			td(colspan="9" ng-click="vm.addItemsToEdit(item, meal)") {{item.name}}
-				span.meals-portion {{item.portion}}
+		.pre-scrollable
+			tr.add-edit-meals(ng-show="vm.editIndex == $parent.$index && vm.addState" ng-repeat="item in vm.items | orderBy: 'name'")
+				td(colspan="9" ng-click="vm.addItemsToEdit(item, meal)") {{item.name}}
+					span.meals-portion {{item.portion}}
 
