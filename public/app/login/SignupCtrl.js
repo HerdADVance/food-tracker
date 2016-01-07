@@ -1,4 +1,4 @@
-angular.module('foodTracker').controller('SignupCtrl', function($scope, $http, $location, mvAuth, mvUser) {
+angular.module('foodTracker').controller('SignupCtrl', function($scope, $http, $location, mvAuth, mvUser, mvNotifier, mvModals) {
 
   var vm = this;
   vm.showSignup = true;
@@ -47,6 +47,9 @@ angular.module('foodTracker').controller('SignupCtrl', function($scope, $http, $
     }
   ];
 
+  vm.showModal = mvModals.signupModal;
+  console.log(vm.showModal);
+
   function showSignup(){
     vm.showSignup = true;
   }
@@ -54,23 +57,12 @@ angular.module('foodTracker').controller('SignupCtrl', function($scope, $http, $
   function addUser(){
     //persistUser(vm.newUser);
     mvAuth.createUser(vm.newUser).then(function(){
-      console.log("USER CREATED");
-      $location.path('/daily');
+      $location.path('/my-foods');
       // HIDE MODAL
     }, function(reason){
-      console.log(reason);
+      mvNotifier.error(reason);
     })
   }
-
-  // persistUser = function(user){
-  //   $http.post('/api/users', user)
-  //     .success(function(data){
-  //       console.log(data);
-  //     })
-  //     .error(function(data){
-  //       console.log("Error: " + data);
-  //     });
-  // }
 
 
 });

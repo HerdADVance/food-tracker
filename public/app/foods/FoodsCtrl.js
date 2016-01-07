@@ -167,10 +167,6 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, $f
       console.log("ERROR: " + reason);
     })
   };
-  // vm.scrollTo = function(id) {
-  //   $location.hash(id);
-  //   $anchorScroll();
-  // }
 
 
 });

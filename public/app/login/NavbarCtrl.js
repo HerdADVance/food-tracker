@@ -1,4 +1,4 @@
-angular.module('foodTracker').controller('NavbarCtrl', function($scope, $http, mvIdentity, mvAuth, $location) {
+angular.module('foodTracker').controller('NavbarCtrl', function($scope, $http, mvIdentity, mvAuth, $location, mvNotifier, mvModals) {
  
 	$scope.identity = mvIdentity;
 
@@ -9,7 +9,7 @@ angular.module('foodTracker').controller('NavbarCtrl', function($scope, $http, m
 				$location.path('/calendar');
 			}
 			else{
-				console.log("LOGIN INFO INCORRECT");
+				mvNotifier.error("Login info incorrect");
 			}
 		});
   }
@@ -22,7 +22,10 @@ angular.module('foodTracker').controller('NavbarCtrl', function($scope, $http, m
   	})
   }
 
+  $scope.openSignupModal = function(){
+  	mvModals.signupModal = "show";
+  	$location.path('/');
+  }
+
 
 });
-
-
