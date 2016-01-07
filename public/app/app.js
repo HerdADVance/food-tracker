@@ -14,7 +14,7 @@ angular.module('foodTracker').config(function($routeProvider, $locationProvider)
 		enabled: true
 	});
 	$routeProvider
-		.when('/', {templateUrl: '/partials/welcome/welcome', controller:'SignupCtrl'})
+		.when('/', {templateUrl: '/partials/welcome/welcome', controller:'WelcomeCtrl'})
 		.when('/calendar', {templateUrl: '/partials/calendar/calendar', controller:'CalendarCtrl'})
 		.when('/daily', {templateUrl: '/partials/daily/daily', controller:'DailyCtrl'})
 		.when('/my-foods', {templateUrl: '/partials/foods/foods', controller:'FoodsCtrl'})

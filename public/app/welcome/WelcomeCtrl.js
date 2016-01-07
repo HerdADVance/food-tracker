@@ -1,4 +1,4 @@
-angular.module('foodTracker').controller('NavbarCtrl', function($scope, $http, mvIdentity, mvAuth, $location, mvNotifier) {
+angular.module('foodTracker').controller('WelcomeCtrl', function($scope, $http, mvIdentity, mvAuth, $location, mvNotifier) {
  
  	var vm = this;
 
