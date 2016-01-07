@@ -2,6 +2,7 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, $f
 
   var vm = this;
   vm.items = mvIdentity.currentUser.foods;
+  console.log(vm.items.length);
 
   vm.onSubmit = addDatabaseItem;
   vm.newItem = {};

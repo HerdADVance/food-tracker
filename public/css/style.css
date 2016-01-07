@@ -459,6 +459,7 @@ tr.calendar-goals td:first-child{
 /* MODALS */
 .hidden{display: none !important;}
 .show{display: block !important;}
+.modal{background: rgba(0,0,0,0.75);}
 
 .modal-header{
 	background: darkred;
@@ -491,11 +492,16 @@ tr.calendar-goals td:first-child{
 	padding: 7px;
 	text-align: center;
 }
-.btn-signup{
+.modal-body button{
+	display: inline-block;
 	font-size: 1.375em;
-	margin: 20px 37.5%;
+	margin: 20px 0;
 	padding: 10px;
 	width: 25%;
+}
+.modal-body button.signup{
+	margin-left: 20%;
+	margin-right: 10%;
 }
 
 /* GLYPHICONS */
