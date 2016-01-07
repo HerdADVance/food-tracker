@@ -6,7 +6,7 @@ angular.module('foodTracker').controller('NavbarCtrl', function($scope, $http, m
 		mvAuth.authenticateUser(username, password).then(function(success){
 			if(success){
 				console.log("LOGGED IN");
-				$location.path('/my-foods');
+				$location.path('/calendar');
 			}
 			else{
 				console.log("LOGIN INFO INCORRECT");

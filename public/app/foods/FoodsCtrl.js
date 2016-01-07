@@ -103,7 +103,7 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, $f
       console.log("ERROR: " + reason);
     })
   };
-  $scope.deleteDatabaseItem = function(itemId){
+  vm.deleteDatabaseItem = function(itemId){
     mvFoods.deleteItem(itemId).then(function(){
       vm.editState = -2;
       vm.items = mvIdentity.currentUser.foods;
@@ -134,7 +134,7 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, $f
     vm.oldIndex = vm.items.indexOf(item);
     vm.itemCopy = angular.copy(vm.items[vm.oldIndex]);
   };
-  $scope.usdaSearch = function(term){
+  vm.usdaSearch = function(term){
     mvFoods.usdaSearch(term).then(function(data){
       vm.usdaItemPortions = [];
       vm.usdaSearchResult = data;
@@ -143,19 +143,18 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, $f
     })
   };
 
-  $scope.usdaSelectItem = function(index, productId){
+  vm.usdaSelectItem = function(index, productId){
     var selectedItem = vm.usdaSearchResult[index];
     vm.usdaSearchResult = [];
     vm.usdaSearchResult.push(selectedItem);
     vm.usdaProductId = productId;
-    vm.scrollTo('usda-search');
     mvFoods.usdaSelectItem(productId).then(function(data){
       vm.usdaItemPortions = data;
     }, function(reason){
       console.log("ERROR: " + reason);
     })
   };
-  $scope.usdaSelectPortion = function(index){
+  vm.usdaSelectPortion = function(index){
     mvFoods.usdaSelectPortion(vm.usdaProductId, index).then(function(data){
       mvFoods.createItem(data).then(function(){
         vm.newItem = {};
@@ -168,10 +167,10 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, $f
       console.log("ERROR: " + reason);
     })
   };
-  vm.scrollTo = function(id) {
-    $location.hash(id);
-    $anchorScroll();
-  }
+  // vm.scrollTo = function(id) {
+  //   $location.hash(id);
+  //   $anchorScroll();
+  // }
 
 
 });
@@ -193,3 +192,16 @@ foodTracker.directive('modelChangeBlur', function() {
     }
   };
 });
+foodTracker.directive('scrollToItem', function() {                                                      
+    return {                                                                                 
+        restrict: 'A',                                                                       
+        scope: {                                                                             
+            scrollTo: "@"                                                                    
+        },                                                                                   
+        link: function(scope, $elm,attr) {                                                   
+
+            $elm.on('click', function() {                                                    
+                $('html,body').animate({scrollTop: $(scope.scrollTo).offset().top }, "slow");
+            });                                                                              
+        }                                                                                    
+    }}) 

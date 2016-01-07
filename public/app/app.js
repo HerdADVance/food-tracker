@@ -10,7 +10,9 @@ angular.module('foodTracker').config(function($routeProvider, $locationProvider)
 	// 	}}
 	// }
 
-	//$locationProvider.html5Mode(true);
+	$locationProvider.html5Mode({
+		enabled: true
+	});
 	$routeProvider
 		.when('/', {templateUrl: '/partials/welcome/welcome', controller:'SignupCtrl'})
 		.when('/calendar', {templateUrl: '/partials/calendar/calendar', controller:'CalendarCtrl'})

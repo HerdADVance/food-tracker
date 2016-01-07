@@ -14,15 +14,15 @@ section#my-foods(ng-controller="FoodsCtrl as vm")
 			span.glyphicon.glyphicon-plus-sign
 			h2 Add A New Food Item From USDA Database
 		.collapse#add-usda-item
-			form#usda-search(ng-submit="usdaSearch(usdaSearchTerm)")
-				input.form-control(type="text" ng-model="usdaSearchTerm" placeholder="Enter a food")
-				button.btn.btn-primary.pull-right(type="submit") Search
+			#usda-search
+				input.form-control(type="text" ng-model="vm.usdaSearchTerm" placeholder="Enter a food")
+				button.btn.btn-primary.pull-right(ng-click="vm.usdaSearch(vm.usdaSearchTerm)") Search
 			table.usda-results#usda-results
-				tr(ng-repeat="item in vm.usdaSearchResult | orderBy: 'name' " ng-click="usdaSelectItem($index, item.ndbno)")
+				tr(ng-repeat="item in vm.usdaSearchResult | orderBy: 'name' " ng-click="vm.usdaSelectItem($index, item.ndbno)" scroll-to-item scroll-to="#usda-search")
 					td {{item.name}}
 			table.usda-results.usda-portions
-				tr(ng-repeat="item in vm.usdaItemPortions" ng-click="usdaSelectPortion($index)")
-					td {{item.qty}} {{item.label}}
+				tr(ng-repeat="portion in vm.usdaItemPortions" ng-click="vm.usdaSelectPortion($index)")
+					td {{portion.qty}} {{portion.label}}
 	h3.subtitle Foods in Database
 	input.pull-right.form-control(type="search", id="item-search", placeholder="Search Items", ng-model="itemSearch")
 	table.database-items.foods-items
@@ -65,5 +65,5 @@ section#my-foods(ng-controller="FoodsCtrl as vm")
 				span.glyphicon.glyphicon-edit(ng-hide="vm.editState == $index" ng-click="vm.editItem(item, $index)")
 				btn.btn.btn-primary(ng-show="vm.editState == $index" ng-click="vm.editSave()") SAVE
 			td.delete-item
-				span.glyphicon.glyphicon-remove(ng-hide="vm.editState == $index" ng-click="deleteDatabaseItem(item._id)")
+				span.glyphicon.glyphicon-remove(ng-hide="vm.editState == $index" ng-click="vm.deleteDatabaseItem(item._id)")
 				btn.btn.btn-primary(ng-show="vm.editState == $index" ng-click="vm.editCancel(item)") CANCEL

@@ -68,10 +68,10 @@ angular.module('foodTracker').factory('mvFoods', function($http, mvIdentity, mvU
 		usdaSelectItem: function(productId){
 			var dfd = $q.defer();
 			var usdaKey = 'Yt5Co9wzddDmE1a6aISsxs7H6cTdNjMG4h0eXLhI';
+			var usdaItemPortions= [];
 
 			$http.get('http://api.nal.usda.gov/ndb/reports/?ndbno=' + productId + '&type=f&format=json&api_key=' + usdaKey).then(function(response){
 	      if(response.status == 200){
-	      	var usdaItemPortions= [];
 	      	for(i=0; i<response.data.report.food.nutrients[0].measures.length; i++){
 	      		usdaItemPortions.push(response.data.report.food.nutrients[0].measures[i]);
 	      	}
