@@ -1,5 +1,6 @@
 section#daily(ng-controller="DailyCtrl as vm")
 	h1 Daily Food List
+	p.intro(ng-show="vm.items.length == 0") You don't have any foods in your database yet! Visit the <a href="/my-foods">My Foods page</a> to add some foods, and then you come back to this page to calculate your daily totals.
 	p.intro Use this section to calculate your daily nutritional totals using the foods and meals you've added to your database.
 	.col-md-3
 		h3 My Foods
@@ -20,7 +21,8 @@ section#daily(ng-controller="DailyCtrl as vm")
 	.col-md-9
 		h3.subtitle Daily Totals
 		input.form-control.pull-right#daily-date(ng-model="vm.theDate" type="date")
-		p.intro(ng-show="vm.selectedItems.length == 0") What did you have to eat today? Click on your foods and meals to add them to this day's list. 
+		p.intro(ng-show="vm.selectedItems.length == 0") <strong>What did you have to eat today?</strong> Click on your foods and meals to add them to the list. 
+		p.intro(ng-show="vm.selectedItems.length == 0") If you're calculating totals for a previous day, use the date-picker at the top-right to change the date.
 		table.database-items.daily-items(ng-show="vm.selectedItems.length > 0 || vm.editing == true")
 			tr
 				th Name

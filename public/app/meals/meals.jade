@@ -1,5 +1,6 @@
 section#my-meals(ng-controller="MealsCtrl as vm")
 	h1 My Meals
+	p.intro(ng-show="vm.items == 0") You don't have any foods in your database yet! Visit the <a href="/my-foods">My Foods page</a> to add some foods, and then you come back to this page to combine them into meals.
 	p.intro Use this section to combine some of your most common foods into a meal to save time when calculating your daily nutritional info. For example, you could create a meal called Breakfast consisting of toast, eggs, bacon, and milk. 
 	.accordion
 		div(data-toggle="collapse", data-target="#add-meal")
@@ -45,7 +46,7 @@ section#my-meals(ng-controller="MealsCtrl as vm")
 						tr(ng-repeat="item in vm.items | orderBy: 'name'")
 							td(ng-click="vm.addItemToMeal(item)") {{item.name}}
 								span.meals-portion {{item.portion}}
-	h3.subtitle Existing Meals
+	h3.subtitle Meals in Database
 	table.database-items.meal-items(ng-repeat="meal in vm.meals | orderBy: 'name' track by $index")
 		tr
 			th

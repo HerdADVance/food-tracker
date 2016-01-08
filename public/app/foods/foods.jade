@@ -1,5 +1,6 @@
 section#my-foods(ng-controller="FoodsCtrl as vm")
 	h1 My Foods
+	p.intro(ng-show="vm.items.length == 0") Welcome to the site! This page is where you'll want to get started. Use one of the two options below to add foods to your database. Once you have some foods added, head over to the <a href="/daily">Daily page</a> to add everything you've eaten in a day.
 	p.intro Use this section to add food items to your database. If you have the nutritional info for a specific food, you can add it in the <strong>Add a New Custom Food Item</strong> area. Otherwise, you can search the <strong>USDA Database</strong> to find the info for the food you're looking for. 
 	.accordion
 		div(data-toggle="collapse", data-target="#add-food-item")

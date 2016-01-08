@@ -7,6 +7,7 @@ input::-webkit-inner-spin-button {
 
 body{
 	background: #FFF7F8;
+	font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
 }
 
 
@@ -91,19 +92,6 @@ ul.nav li a{
 	line-height: 1.5em;
 	margin: 30px 0;
 }
-#welcome button{
-	background: darkslateblue;
-	box-shadow: 3px 3px 10px rgba(139,58,58,1);
-	color: lightpink;
-	font-size: 1.75em;
-	height: 55px;
-	margin: 35px 0 20px 37.5%;
-	text-align:center;
-	width: 25%;
-}
-#welcome button:hover{
-	background: rgba(72, 61, 139, 0.95);
-}
 
 /* MAIN CONTAINER */
 .main-container{
@@ -139,7 +127,7 @@ ul.nav li a{
 	background: #9F0000;
 }
 p.intro{
-	font-size: 1.25em;
+	font-size: 1.375em;
 	color: #333;
 	margin: 20px 0 25px;
 }
@@ -149,7 +137,6 @@ h3.subtitle{
 	margin-top: 40px;
 	padding-bottom: 5px;
 }
-
 
 /* ADD TO DATABASE FORM*/
 #add-food-item{
