@@ -53,8 +53,9 @@ angular.module('foodTracker').factory('mvFoods', function($http, mvIdentity, mvU
 			var dfd = $q.defer();
 			var usdaKey = 'Yt5Co9wzddDmE1a6aISsxs7H6cTdNjMG4h0eXLhI';
 
-			$http.get('//api.nal.usda.gov/ndb/search/?format=json&q=' + term + '&sort=n&max=100&offset=0&api_key=' + usdaKey + "/").then(function(response){
+			$http.get('https://api.nutritionix.com/v1_1/search/cheddar%20cheese?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=5d11d7cb&appKey=1045827ad8f2f2a19d402024fd9319c6').then(function(response){
 	      if(response.status == 200){
+	      	console.log(response.data);
 	      	var usdaSearchResult = response.data.list.item;
 	      	dfd.resolve(usdaSearchResult);
 	      }
