@@ -53,7 +53,7 @@ angular.module('foodTracker').factory('mvFoods', function($http, mvIdentity, mvU
 			var dfd = $q.defer();
 			var usdaKey = 'Yt5Co9wzddDmE1a6aISsxs7H6cTdNjMG4h0eXLhI';
 
-			$http.get('https//api.nal.usda.gov/ndb/search/?format=json&q=' + term + '&sort=n&max=100&offset=0&api_key=' + usdaKey).then(function(response){
+			$http.get('https://api.nal.usda.gov/ndb/search/?format=json&q=' + term + '&sort=n&max=100&offset=0&api_key=' + usdaKey).then(function(response){
 	      if(response.status == 200){
 	      	var usdaSearchResult = response.data.list.item;
 	      	dfd.resolve(usdaSearchResult);
@@ -70,7 +70,7 @@ angular.module('foodTracker').factory('mvFoods', function($http, mvIdentity, mvU
 			var usdaKey = 'Yt5Co9wzddDmE1a6aISsxs7H6cTdNjMG4h0eXLhI';
 			var usdaItemPortions= [];
 
-			$http.get('https//api.nal.usda.gov/ndb/reports/?ndbno=' + productId + '&type=f&format=json&api_key=' + usdaKey).then(function(response){
+			$http.get('https://api.nal.usda.gov/ndb/reports/?ndbno=' + productId + '&type=f&format=json&api_key=' + usdaKey).then(function(response){
 	      if(response.status == 200){
 	      	for(i=0; i<response.data.report.food.nutrients[0].measures.length; i++){
 	      		usdaItemPortions.push(response.data.report.food.nutrients[0].measures[i]);
