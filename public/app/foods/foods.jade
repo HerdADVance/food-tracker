@@ -19,11 +19,10 @@ section#my-foods(ng-controller="FoodsCtrl as vm")
 				input.form-control(type="text" ng-model="vm.usdaSearchTerm" placeholder="Enter a food")
 				button.btn.btn-primary.pull-right(ng-click="vm.usdaSearch(vm.usdaSearchTerm)") Search
 			table.usda-results#usda-results
-				tr(ng-repeat="item in vm.usdaSearchResult | orderBy: 'name' " ng-click="vm.usdaSelectItem(item)" scroll-to-item scroll-to="#usda-search")
-					td {{item.fields.item_name}}
-			table.usda-results.usda-portions
-				tr(ng-repeat="portion in vm.usdaItemPortions" ng-click="vm.usdaSelectPortion($index)")
-					td {{portion.qty}} {{portion.label}}
+				tr(ng-repeat="item in vm.usdaSearchResult | orderBy: 'name' " ng-click="vm.usdaSelectItem(item)")
+					td 
+						span(ng-hide="item.fields.brand_name == 'USDA'") {{item.fields.brand_name}} 
+						span {{item.fields.item_name}}
 	h3.subtitle Foods in Database
 	input.pull-right.form-control(type="search", id="item-search", placeholder="Search Items", ng-model="itemSearch" ng-show="vm.items.length > 0")
 	table.database-items.foods-items(ng-show="vm.items.length > 0")
