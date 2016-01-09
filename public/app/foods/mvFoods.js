@@ -51,12 +51,10 @@ angular.module('foodTracker').factory('mvFoods', function($http, mvIdentity, mvU
 		},
 		usdaSearch: function(term){
 			var dfd = $q.defer();
-			var usdaKey = 'Yt5Co9wzddDmE1a6aISsxs7H6cTdNjMG4h0eXLhI';
 
-			$http.get('https://api.nutritionix.com/v1_1/search/cheddar%20cheese?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=5d11d7cb&appKey=1045827ad8f2f2a19d402024fd9319c6').then(function(response){
+			$http.get('https://api.nutritionix.com/v1_1/search/' + term + '?fields=item_name%2Citem_id%2Cnf_calories%2Cnf_total_fat%2Cnf_protein%2Cnf_total_carbohydrate%2Cnf_sodium%2Cnf_dietary_fiber&appId=5d11d7cb&appKey=1045827ad8f2f2a19d402024fd9319c6').then(function(response){
 	      if(response.status == 200){
-	      	console.log(response.data);
-	      	var usdaSearchResult = response.data.list.item;
+	      	var usdaSearchResult = response.data.hits;
 	      	dfd.resolve(usdaSearchResult);
 	      }
 	      else{
@@ -66,57 +64,19 @@ angular.module('foodTracker').factory('mvFoods', function($http, mvIdentity, mvU
 
 			return dfd.promise;
 		},
-		usdaSelectItem: function(productId){
-			var dfd = $q.defer();
-			var usdaKey = 'Yt5Co9wzddDmE1a6aISsxs7H6cTdNjMG4h0eXLhI';
-			var usdaItemPortions= [];
+		usdaPackageItem: function(item){
+			console.log(item);
+    	var newItem = {};
+    	newItem.name = item.fields.item_name
+    	newItem.portion = item.fields.nf_serving_size_qty + " " + item.fields.nf_serving_size_unit;
+    	newItem.calories = item.fields.nf_calories;
+    	newItem.protein = item.fields.nf_protein;
+    	newItem.fat = item.fields.nf_total_fat;
+    	newItem.carbs = item.fields.nf_total_carbohydrate;
+    	newItem.fiber = item.fields.nf_dietary_fiber;
+    	newItem.sodium = item.fields.nf_sodium;
 
-			$http.get('//api.nal.usda.gov/ndb/reports/?ndbno=' + productId + '&type=f&format=json&api_key=' + usdaKey + "/").then(function(response){
-	      if(response.status == 200){
-	      	for(i=0; i<response.data.report.food.nutrients[0].measures.length; i++){
-	      		usdaItemPortions.push(response.data.report.food.nutrients[0].measures[i]);
-	      	}
-	      	dfd.resolve(usdaItemPortions);
-	      }
-	      else{
-	        dfd.resolve(false);
-	      }
-	    });
-
-			return dfd.promise;
-		},
-		usdaSelectPortion: function(productId, index){
-			var dfd = $q.defer();
-			var usdaKey = 'Yt5Co9wzddDmE1a6aISsxs7H6cTdNjMG4h0eXLhI';
-
-			$http.get('//api.nal.usda.gov/ndb/reports/?ndbno=' + productId + '&type=f&format=json&api_key=' + usdaKey + "/").then(function(response){
-	      if(response.status == 200){
-	      	var newItem = {};
-	      	var food = response.data.report.food;
-	      	
-	      	newItem.name = food.name
-	      	newItem.portion = food.nutrients[0].measures[index].qty + " " + food.nutrients[0].measures[index].label;
-	      	newItem.calories = food.nutrients[1].measures[index].value;
-	      	newItem.protein = food.nutrients[3].measures[index].value;
-	      	newItem.fat = food.nutrients[4].measures[index].value;
-	      	newItem.carbs = food.nutrients[6].measures[index].value;
-	      	newItem.fiber = food.nutrients[7].measures[index].value;
-
-	      	for(i=8; i<food.nutrients.length-8; i++){
-	      		if(food.nutrients[i].nutrient_id == 307){
-	      			newItem.sodium = food.nutrients[i].measures[index].value;
-	      			break;
-	      		}
-	      	}
-
-	      	dfd.resolve(newItem);
-	      }
-	      else{
-	        dfd.resolve(false);
-	      }
-	    });
-
-			return dfd.promise;
+			return newItem;
 		}
 
 	}

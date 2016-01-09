@@ -142,35 +142,17 @@ angular.module('foodTracker').controller('FoodsCtrl', function($scope, $http, $f
       console.log("ERROR: " + reason);
     })
   };
-
-  vm.usdaSelectItem = function(index, productId){
-    var selectedItem = vm.usdaSearchResult[index];
-    vm.usdaSearchResult = [];
-    vm.usdaSearchResult.push(selectedItem);
-    vm.usdaProductId = productId;
-    mvFoods.usdaSelectItem(productId).then(function(data){
-      vm.usdaItemPortions = data;
+  vm.usdaSelectItem = function(item){
+    var newItem = mvFoods.usdaPackageItem(item);
+    mvFoods.createItem(newItem).then(function(){
+      vm.items = mvIdentity.currentUser.foods;
+      mvNotifier.notify('Item added to database!');
     }, function(reason){
       console.log("ERROR: " + reason);
     })
   };
-  vm.usdaSelectPortion = function(index){
-    mvFoods.usdaSelectPortion(vm.usdaProductId, index).then(function(data){
-      mvFoods.createItem(data).then(function(){
-        vm.newItem = {};
-        vm.items = mvIdentity.currentUser.foods;
-        mvNotifier.notify('Item added to database!');
-      }, function(reason){
-        console.log("ERROR: " + reason);
-      })
-    }, function(reason){
-      console.log("ERROR: " + reason);
-    })
-  };
-
 
 });
-
 
 foodTracker.directive('modelChangeBlur', function() {
   return {
